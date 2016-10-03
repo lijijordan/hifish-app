@@ -1,8 +1,8 @@
-package com.khoubyari.example.api.rest;
+package com.hifish.app.api.rest;
 
-import com.khoubyari.example.domain.RestErrorInfo;
-import com.khoubyari.example.exception.DataFormatException;
-import com.khoubyari.example.exception.ResourceNotFoundException;
+import com.hifish.app.domain.RestErrorInfo;
+import com.hifish.app.exception.DataFormatException;
+import com.hifish.app.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
@@ -27,6 +27,15 @@ public abstract class AbstractRestHandler implements ApplicationEventPublisherAw
 
     protected static final String  DEFAULT_PAGE_SIZE = "100";
     protected static final String DEFAULT_PAGE_NUM = "0";
+
+    /**
+     * 请求返回成功
+     */
+    protected static final String RESPONSE_SUCCESS = "SUCCESS";
+    /**
+     * 请求返回失败
+     */
+    protected static final String RESPONSE_FAILURE = "FAILURE";
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DataFormatException.class)
@@ -60,5 +69,6 @@ public abstract class AbstractRestHandler implements ApplicationEventPublisherAw
         }
         return resource;
     }
+
 
 }

@@ -1,4 +1,4 @@
-package com.khoubyari.example.exception;
+package com.hifish.app.exception;
 
 /**
  * For HTTP 404 errros

@@ -7,7 +7,7 @@ This is a sample Java / Maven / Spring Boot application that can be used as a st
 This application is packaged as a war which has Tomcat 7 embedded. No Tomcat or JBoss installation is necessary. You run it using the ```java -jar``` command.
 
 * Clone this repository 
-* Make sure you are using JDK 1.7 and Maven 3.x
+* Make sure you are using JDK 1.7 and Maven 3.xel
 * You can build the project and run the tests by running ```mvn clean package```
 * Once successfully built, you can run the service by one of these two methods:
 ```

@@ -1,20 +1,24 @@
-package com.khoubyari.example;
+package com.hifish.app.aop;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+/**
+ * The type Rest controller aspect.
+ */
 @Aspect
-@Component
+@Component(value = "restControllerAspect")
 public class RestControllerAspect {
 
-    @Before("execution(public * com.khoubyari.example.api.rest.*Controller.*(..))")
+    /**
+     * Log before rest call.
+     *
+     * @param pjp the pjp
+     * @throws Throwable the throwable
+     */
+    @Before("execution(public * com.hifish..app.api.rest.*Controller.*(..))")
     public void logBeforeRestCall(JoinPoint pjp) throws Throwable {
         System.out.println(":::::AOP Before REST call:::::" + pjp);
     }

@@ -1,4 +1,5 @@
-package com.khoubyari.example.domain;
+package com.hifish.app.domain;
+
 
 import javax.xml.bind.annotation.XmlRootElement;
 
