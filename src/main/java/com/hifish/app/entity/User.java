@@ -1,6 +1,10 @@
 package com.hifish.app.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import java.util.Set;
 
 
 /**
@@ -9,103 +13,70 @@ import javax.persistence.Entity;
 @Entity
 public class User extends BaseEntity {
 
-    private int pm2_5;
+    /**
+     * 微信ID
+     */
+    private String openId;
+    private String name;
 
-    private int pm10;
-
-    private float temperature;
-
-    private int humidity;
-
-    private String deviceId;
+    @ManyToMany
+    @JoinTable(
+            name = "users_on_devices",
+            joinColumns = @JoinColumn(name = "device_id", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "ID"))
+    private Set<AirDevice> airDevices;
 
     /**
-     * Gets pm 2 5.
+     * Gets open id.
      *
-     * @return the pm 2 5
+     * @return the open id
      */
-    public int getPm2_5() {
-        return pm2_5;
+    public String getOpenId() {
+        return openId;
     }
 
     /**
-     * Sets pm 2 5.
+     * Sets open id.
      *
-     * @param pm2_5 the pm 2 5
+     * @param openId the open id
      */
-    public void setPm2_5(int pm2_5) {
-        this.pm2_5 = pm2_5;
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 
     /**
-     * Gets pm 10.
+     * Gets name.
      *
-     * @return the pm 10
+     * @return the name
      */
-    public int getPm10() {
-        return pm10;
+    public String getName() {
+        return name;
     }
 
     /**
-     * Sets pm 10.
+     * Sets name.
      *
-     * @param pm10 the pm 10
+     * @param name the name
      */
-    public void setPm10(int pm10) {
-        this.pm10 = pm10;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
-     * Gets temperature.
+     * Gets air devices.
      *
-     * @return the temperature
+     * @return the air devices
      */
-    public float getTemperature() {
-        return temperature;
+    public Set<AirDevice> getAirDevices() {
+        return airDevices;
     }
 
     /**
-     * Sets temperature.
+     * Sets air devices.
      *
-     * @param temperature the temperature
+     * @param airDevices the air devices
      */
-    public void setTemperature(float temperature) {
-        this.temperature = temperature;
-    }
-
-    /**
-     * Gets humidity.
-     *
-     * @return the humidity
-     */
-    public int getHumidity() {
-        return humidity;
-    }
-
-    /**
-     * Sets humidity.
-     *
-     * @param humidity the humidity
-     */
-    public void setHumidity(int humidity) {
-        this.humidity = humidity;
-    }
-
-    /**
-     * Gets device id.
-     *
-     * @return the device id
-     */
-    public String getDeviceId() {
-        return deviceId;
-    }
-
-    /**
-     * Sets device id.
-     *
-     * @param deviceId the device id
-     */
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
+    public void setAirDevices(Set<AirDevice> airDevices) {
+        this.airDevices = airDevices;
     }
 }

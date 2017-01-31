@@ -1,7 +1,7 @@
 package com.hifish.app.test;
 
 import org.eclipse.paho.client.mqttv3.*;
-import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -18,8 +18,8 @@ public class MqttFish {
         int qos = 0;
         String broker = "tcp://106.185.35.79:1883";
         String clientId = "mqtt1";
-//        MemoryPersistence persistence = new MemoryPersistence();
-        MqttDefaultFilePersistence persistence = new MqttDefaultFilePersistence("/Users/liji/test");
+        MemoryPersistence persistence = new MemoryPersistence();
+//        MqttDefaultFilePersistence persistence = new MqttDefaultFilePersistence("/Users/liji/test");
         try {
 //            MqttClient mqttClient = new MqttClient(broker, clientId, persistence);
             MqttAsyncClient sampleClient = new MqttAsyncClient(broker, clientId, persistence);
@@ -39,17 +39,68 @@ public class MqttFish {
             System.out.println("Publishing message: " + content.toString());
             MqttMessage message = new MqttMessage(content.getBytes());
             message.setQos(qos);
-            sampleClient.subscribe("PH", qos, (s, mqttMessage) -> {
-                System.out.println("PH          : " + new String(mqttMessage.getPayload(), StandardCharsets.UTF_8));
-            });
+//            sampleClient.subscribe("PH", qos, (s, mqttMessage) -> {
+//                System.out.println("PH          : " + new String(mqttMessage.getPayload(), StandardCharsets.UTF_8));
+//            });
+            /*
             sampleClient.subscribe("Temperature", qos, (s, mqttMessage) -> {
                 System.out.println("Temperature : " + new String(mqttMessage.getPayload(), StandardCharsets.UTF_8));
             });
-            sampleClient.subscribe("TDS", qos, (s, mqttMessage) -> {
-                System.out.println("TDS         : " + new String(mqttMessage.getPayload(), StandardCharsets.UTF_8));
+            sampleClient.subscribe("Light", qos, (s, mqttMessage) -> {
+                System.out.println("Light       : " + new String(mqttMessage.getPayload(), StandardCharsets.UTF_8));
                 System.out.println(new Date());
                 System.out.println("------------------------------------------------------------------------");
             });
+*/
+//            sampleClient.subscribe("Salinity", qos, (s, mqttMessage) -> {
+//                System.out.println("                            Salinity    : " + new String(mqttMessage.getPayload(), StandardCharsets.UTF_8));
+//                System.out.println(new Date());
+//                System.out.println("------------------------------------------------------------------------");
+//            });
+//            sampleClient.subscribe("TDS", qos, (s, mqttMessage) -> {
+//                System.out.println("TDS         : " + new String(mqttMessage.getPayload(), StandardCharsets.UTF_8));
+//                System.out.println(new Date());
+//                System.out.println("------------------------------------------------------------------------");
+//            });
+
+//            sampleClient.subscribe("HCHO_mg", qos, (s, mqttMessage) -> {
+//                System.out.println("HCHO_MG         : " + new String(mqttMessage.getPayload(), StandardCharsets.UTF_8));
+//                System.out.println(new Date());
+//                System.out.println("------------------------------------------------------------------------");
+//            });
+//
+//            sampleClient.subscribe("HCHO_ppm", qos, (s, mqttMessage) -> {
+//                System.out.println("        HCHO_PPM         : " + new String(mqttMessage.getPayload(), StandardCharsets.UTF_8));
+//                System.out.println(new Date());
+//                System.out.println("------------------------------------------------------------------------");
+//            });
+
+            sampleClient.subscribe("PM25", qos, (s, mqttMessage) -> {
+                System.out.println("PM2.5         : " + new String(mqttMessage.getPayload(), StandardCharsets.UTF_8));
+                System.out.println(new Date());
+                System.out.println("------------------------------------------------------------------------");
+            });
+
+            sampleClient.subscribe("PM10", qos, (s, mqttMessage) -> {
+                System.out.println("        PM10         : " + new String(mqttMessage.getPayload(), StandardCharsets.UTF_8));
+                System.out.println(new Date());
+                System.out.println("------------------------------------------------------------------------");
+            });
+
+
+
+            sampleClient.subscribe("Humidity", qos, (s, mqttMessage) -> {
+                System.out.println("        Humidity         : " + new String(mqttMessage.getPayload(), StandardCharsets.UTF_8));
+                System.out.println(new Date());
+                System.out.println("------------------------------------------------------------------------");
+            });
+            sampleClient.subscribe("Temperature", qos, (s, mqttMessage) -> {
+                System.out.println("        Temperature         : " + new String(mqttMessage.getPayload(), StandardCharsets.UTF_8));
+                System.out.println(new Date());
+                System.out.println("------------------------------------------------------------------------");
+            });
+
+
             System.out.println("Message published");
 //            sampleClient.disconnect();
             System.out.println("Disconnected");
@@ -58,8 +109,10 @@ public class MqttFish {
 //            for (int i = 0; i < 1000; i++) {
 //                Thread.sleep(1000);
 //                System.out.println("send..." + i);
-//                sampleClient.publish("temperature", new MqttMessage(("123456-22.21").getBytes()));
-//                sampleClient.publish("PH", new MqttMessage(("123456-7.22").getBytes()));
+////                sampleClient.publish("HCHO", new MqttMessage(("fisher01-" + i).getBytes()));
+//                sampleClient.publish("PM2_5", new MqttMessage(("fisher01-" + i).getBytes()));
+////                sampleClient.publish("PM10", new MqttMessage(("fisher01-" + i).getBytes()));
+////                sampleClient.publish("root/feeds/onoff", new MqttMessage((String.valueOf(i)).getBytes()));
 //            }
 
         } catch (MqttException me) {

@@ -1,47 +1,51 @@
 package com.hifish.app.util;
 
-import com.alibaba.fastjson.JSONObject;
-import com.cuiyongzhi.wechat.util.HttpUtils;
 
-import net.sf.json.JSONArray;
+import com.hifish.app.task.WechatTask;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class MenuMain {
 
-    public static void main(String[] args) {
 
-        ClickButton cbt=new ClickButton();
-        cbt.setKey("image");
-        cbt.setName("回复图片");
-        cbt.setType("click");
+    public static String getHomePageUrl() {
+        String sampleUrl = "https://open.weixin.qq.com/connect/oauth2/authorize" +
+                "?appid=wx690cea67271973b8" +
+                "&redirect_uri=http%3A%2F%2Fa4bc785e.ngrok.io%2F" +
+                "&response_type=code&scope=snsapi_base" +
+                "&state=test" +
+                "#wechat_redirect";
 
-        ViewButton vbt=new ViewButton();
-        vbt.setUrl("http://www.cuiyongzhi.com");
-        vbt.setName("博客");
-        vbt.setType("view");
 
-        JSONArray sub_button=new JSONArray();
-        sub_button.add(cbt);
-        sub_button.add(vbt);
+        String url = "https://open.weixin.qq.com/connect/oauth2/authorize" +
+                "?appid=" + WechatTokenHelper.APP_ID +
+                "&redirect_uri=https%3A%2F%2Fa4bc785e.ngrok.io%2F" +
+                "&response_type=code" +
+                "&scope=snsapi_userinfo" +
+                "&state=STATE" +
+                "#wechat_redirect";
 
-        JSONObject buttonOne=new JSONObject();
-        buttonOne.put("name", "菜单");
-        buttonOne.put("sub_button", sub_button);
+        return url;
+    }
 
-        JSONArray button=new JSONArray();
-        button.add(vbt);
-        button.add(buttonOne);
-        button.add(cbt);
-
-        JSONObject menujson=new JSONObject();
-        menujson.put("button", button);
+    public static void main(String[] args) throws Exception {
+        JSONObject menujson = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        JSONObject button1 = new JSONObject();
+        button1.put("name", "PM2.5");
+        button1.put("type", "view");
+        button1.put("url", getHomePageUrl());
+        jsonArray.put(button1);
+        menujson.put("button", jsonArray);
         System.out.println(menujson);
         //这里为请求接口的 url   +号后面的是 token，这里就不做过多对 token 获取的方法解释
-        String url="https://api.weixin.qq.com/cgi-bin/menu/create?access_token="+"upeDW-2pWrHgLx3fGqgsvAvf-HkQBA--5uHOo9OW16uNdL9zNPnnuIN01UDFXh_5d-QdcnBxux9tXigFwm1z0SInbdkXEKa1pMhTqaZVxK7sCPj7421YQGI0v3evwiwiWALjAHASWH";
-
-        try{
-            String rs=HttpUtils.sendPostBuffer(url, menujson.toJSONString());
+        String token = WechatTask.getToken();
+        String url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + token;
+        System.out.println(url);
+        try {
+            String rs = HttpUtils.sendPostBuffer(url, menujson.toString());
             System.out.println(rs);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("请求错误！");
         }
 

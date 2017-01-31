@@ -1,7 +1,7 @@
 package com.hifish.app.util;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;  
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;  
 
 /**
@@ -12,7 +12,7 @@ import java.util.Arrays;
  */
 public class SignUtil {  
     // 与接口配置信息中的 Token 要一致   
-    private static String token = "dapengniaowechat";  
+    private static String token = "hifish";
     /** 
      * 验证签名 
      * @param signature 

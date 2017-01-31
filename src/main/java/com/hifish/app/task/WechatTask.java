@@ -1,16 +1,15 @@
 package com.hifish.app.task;
 
-import com.mydreamplus.smartdevice.dao.jpa.DeviceRepository;
-import com.mydreamplus.smartdevice.dao.jpa.SensorDataRepository;
-import com.mydreamplus.smartdevice.domain.DeviceStateEnum;
-import com.mydreamplus.smartdevice.util.AuthUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.hifish.app.util.HttpUtils;
+import com.hifish.app.util.WechatTokenHelper;
+import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 检查设备的离线状态任务
@@ -22,50 +21,34 @@ public class WechatTask {
     private static final long ONE_HOUR = 1000 * 60 * 60;
     private static final long ONE_MINUTE = 1000 * 60;
 
-    private final Logger log = LoggerFactory.getLogger(WechatTask.class);
-    @Autowired
-    private DeviceRepository deviceRepository;
-
-    @Autowired
-    private SensorDataRepository sensorDataRepository;
-
-    @Autowired
-    private AuthUtil authUtil;
+    /**
+     * Gets token.
+     *
+     * @throws Exception the exception
+     */
+    public static String getToken() throws Exception {
+        Map<String, String> params = new HashMap();
+        params.put("grant_type", "client_credential");
+        params.put("appid", WechatTokenHelper.APP_ID);
+        params.put("secret", WechatTokenHelper.APP_SECRET);
+        String jstoken = HttpUtils.sendGet(WechatTokenHelper.TOKEN_URL, params);
+        JSONObject jsonObject = new JSONObject(jstoken);
+        String access_token = (String) jsonObject.get("access_token");
+//        GlobalConstants.interfaceUrlProperties.put("access_token", access_token);
+        WechatTokenHelper.setToken(access_token);
+        System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "token 为==============================" + access_token);
+        return access_token;
+    }
 
     /**
      * 60分钟执行一次
+     *
+     * @throws Exception the exception
      */
-    @Scheduled(fixedRate = ONE_HOUR, initialDelay = ONE_HOUR)
-    public void run() {
-        log.info("************************ 更新设备在线状态,每小时执行 ************************");
-        // 一小时前的时间
-        Date date = new Date(System.currentTimeMillis() - ONE_HOUR);
-        this.deviceRepository.updateOfflineState(DeviceStateEnum.OFFLINE, date);
-//        this.deviceRepository.findAllByUpdateTimeLessThan(date).forEach(device -> {
-//            log.info("更新设备{} {}为离线状态", device.getName(), device.getSymbol());
-//            device.setDeviceState(DeviceStateEnum.OFFLINE);
-//            this.deviceRepository.save(device);
-//        });
+    @Scheduled(fixedRate = ONE_MINUTE)
+    public void run() throws Exception {
+        getToken();
     }
 
 
-    /**
-     * 60分钟执行一次
-     */
-    @Scheduled(fixedRate = ONE_HOUR, initialDelay = ONE_HOUR)
-    public void clearCache() {
-        log.info("************************ 清楚权限缓存,每小时执行 ************************");
-        authUtil.cleanCache();
-    }
-
-
-    /**
-     * 每天1点10分30秒触发任务
-     */
-    @Scheduled(cron = "30 10 15 * * ?")
-    public void emptySensorData() {
-        log.info("************************ 清除Sensor Data, 每天1点10分30秒触发任务 ************************");
-        sensorDataRepository.deleteAll();
-    }
-
-}  
+}

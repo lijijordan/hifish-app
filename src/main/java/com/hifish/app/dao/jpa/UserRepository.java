@@ -1,11 +1,12 @@
 package com.hifish.app.dao.jpa;
 
-import com.hifish.app.entity.AirDevice;
+import com.hifish.app.entity.User;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+
 /**
- * The interface Air device repository.
+ * The interface User repository.
  */
-public interface UserRepository extends PagingAndSortingRepository<AirDevice, Long> {
-    
+public interface UserRepository extends PagingAndSortingRepository<User, Long> {
+
 }

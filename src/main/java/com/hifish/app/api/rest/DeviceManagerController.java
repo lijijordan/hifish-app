@@ -1,19 +1,15 @@
 package com.hifish.app.api.rest;
 
-import com.hifish.app.service.DeviceManager;
+import com.hifish.app.util.SignUtil;
 import com.hifish.app.vo.BaseResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * The type Device manager controller.
@@ -23,10 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "设备管理API", description = "设备管理API,提供设备管理接口,web页面调用")
 public class DeviceManagerController extends AbstractRestHandler {
 
-    private final Logger log = LoggerFactory.getLogger(DeviceManagerController.class);
+    private final Logger logger = LoggerFactory.getLogger(DeviceManagerController.class);
 
-    @Autowired
-    private DeviceManager deviceManager;
 
     @RequestMapping(value = "/test",
             method = RequestMethod.POST,
@@ -38,5 +32,26 @@ public class DeviceManagerController extends AbstractRestHandler {
         return new BaseResponse(RESPONSE_SUCCESS);
     }
 
+
+    @RequestMapping(value = "/security",
+            method = RequestMethod.GET)
+    public String doGet(@RequestParam(value = "signature", required = true) String signature,
+                        @RequestParam(value = "timestamp", required = true) String timestamp,
+                        @RequestParam(value = "nonce", required = true) String nonce,
+                        @RequestParam(value = "echostr", required = true) String echostr) {
+        logger.info(signature);
+        if (SignUtil.checkSignature(signature, timestamp, nonce)) {
+            return echostr;
+        } else {
+            logger.info("这里存在非法请求！");
+            return "false";
+        }
+    }
+
+//    @RequestMapping(value = "/security", method = RequestMethod.POST)
+//    // post 方法用于接收微信服务端消息
+//    public void doPost() {
+//        System.out.println("这是 post 方法！");
+//    }
 
 }

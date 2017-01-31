@@ -7,7 +7,7 @@ spring.jmx:
 
 spring.datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/hifish?autoReconnect=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/hifish_service?autoReconnect=true&useSSL=false
     username: root
     password: root
 
@@ -28,7 +28,7 @@ management:
 
 #default project info followed by actual injected pom-specified values.
 project:
-  name: hifishapp
+  name: hifish-service
   version: 0.1
   description: hi fish app server
 info:
@@ -48,3 +48,14 @@ spring:
   datasource:
     test-on-borrow: true
     validation-query: select 1
+
+
+# RabbitMQ
+mqtt:
+  topic: deviceServerTopic
+  testTopic: testTopic
+  deviceWillTopic: device-will
+  qos: 0
+  broker: tcp://106.185.35.79:1883
+  userName:  /liji:liji_host
+  password: liji_host
