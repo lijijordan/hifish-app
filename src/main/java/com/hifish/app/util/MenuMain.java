@@ -16,10 +16,9 @@ public class MenuMain {
                 "&state=test" +
                 "#wechat_redirect";
 
-
         String url = "https://open.weixin.qq.com/connect/oauth2/authorize" +
                 "?appid=" + WechatTokenHelper.APP_ID +
-                "&redirect_uri=https%3A%2F%2Fa4bc785e.ngrok.io%2F" +
+                "&redirect_uri=http%3A%2F%2F0a76a94a.ngrok.io%2Fwxentrance%2Ftest" +
                 "&response_type=code" +
                 "&scope=snsapi_userinfo" +
                 "&state=STATE" +
@@ -32,7 +31,7 @@ public class MenuMain {
         JSONObject menujson = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         JSONObject button1 = new JSONObject();
-        button1.put("name", "PM2.5");
+        button1.put("name", "空气质量");
         button1.put("type", "view");
         button1.put("url", getHomePageUrl());
         jsonArray.put(button1);

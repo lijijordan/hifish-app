@@ -21,6 +21,17 @@ public class BaseEntity {
     @Column(insertable = false, updatable = true)
     private Date updateTime;
 
+    @Column(insertable = false, updatable = true)
+    private Boolean isDel;
+
+    public Boolean getDel() {
+        return isDel;
+    }
+
+    public void setDel(Boolean del) {
+        isDel = del;
+    }
+
     /**
      * Gets update time.
      *

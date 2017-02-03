@@ -1,10 +1,13 @@
 package com.hifish.app.mqtt;
 
+import com.hifish.app.entity.AirDeviceData;
+import com.hifish.app.service.AirDeviceManager;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import java.nio.charset.StandardCharsets;
@@ -19,7 +22,6 @@ import java.nio.charset.StandardCharsets;
 public class MQTTService {
 
     private static final Logger log = LoggerFactory.getLogger(MQTTService.class);
-
     /**
      * 设备离线遗言频道
      */
@@ -28,6 +30,8 @@ public class MQTTService {
     private static int qos = 0;
     private static String serverTopic;
     private static ApplicationContext context;
+    @Autowired
+    private static AirDeviceManager deviceManager;
 
     /**
      * Gets async client.
@@ -48,6 +52,8 @@ public class MQTTService {
     public static void initMQTT(ApplicationContext applicationContext) {
         log.info("初始化MQTT连接");
         context = applicationContext;
+
+        deviceManager = context.getBean(AirDeviceManager.class);
         String broker = MQTTConfig.getBroker();
         String clientId = MQTTConfig.getClientId();
         String userName = MQTTConfig.getUserName();
@@ -121,15 +127,32 @@ public class MQTTService {
             try {
                 String content = new String(mqttMessage.getPayload(), StandardCharsets.UTF_8);
                 log.info("Client message : " + content);
-                JSONObject jsonObject = new JSONObject(content);
-                String action = (String) jsonObject.get("action");
-                log.info("Action ========================>{} {}", action, content);
-                // 处理消息..
-
+                saveAirDeviceData(content);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
+    }
+
+    /**
+     * Save Air device data
+     *
+     * @param content
+     */
+    private static void saveAirDeviceData(String content) {
+        JSONObject jsonObject = new JSONObject(content);
+        // 处理消息..
+        String sn = jsonObject.getString("sn");
+        double temperature = jsonObject.getDouble("temperature");
+        double humidity = jsonObject.getDouble("humidity");
+        int pm2_5 = jsonObject.getInt("pm2_5");
+        AirDeviceData airDevice = new AirDeviceData();
+        airDevice.setCreateTime(new java.util.Date());
+        airDevice.setDeviceId(sn);
+        airDevice.setHumidity(humidity);
+        airDevice.setPm2_5(pm2_5);
+        airDevice.setTemperature(temperature);
+        deviceManager.saveAirDeviceData(airDevice);
     }
 
     /**

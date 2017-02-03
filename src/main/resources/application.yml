@@ -50,6 +50,26 @@ spring:
     validation-query: select 1
 
 
+###wechat##
+wechat:
+  token: hifish
+  appid: wx690cea67271973b8
+  appsecret: 375173429b9f4a502dc849119c37460b
+  token.type: client_credential
+  token.url: https://api.weixin.qq.com/cgi-bin/token
+  cgi:
+    userinfo:
+      url: https://api.weixin.qq.com/cgi-bin/user/info
+  oauth_token:
+    url: https://api.weixin.qq.com/sns/oauth2/access_token
+    type: authorization_code
+  sns:
+    userinfo:
+      url: https://api.weixin.qq.com/sns/userinfo
+  jsapi_ticket:
+    type: jsapi
+    url: https://api.weixin.qq.com/cgi-bin/ticket/getticket
+
 # RabbitMQ
 mqtt:
   topic: deviceServerTopic

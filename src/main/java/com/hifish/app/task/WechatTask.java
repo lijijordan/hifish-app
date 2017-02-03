@@ -3,6 +3,8 @@ package com.hifish.app.task;
 import com.hifish.app.util.HttpUtils;
 import com.hifish.app.util.WechatTokenHelper;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,8 @@ import java.util.Map;
  */
 @Component("task")
 public class WechatTask {
+
+    private static final Logger logger = LoggerFactory.getLogger(WechatTask.class);
 
     // 一个小时
     private static final long ONE_HOUR = 1000 * 60 * 60;
@@ -32,6 +36,7 @@ public class WechatTask {
         params.put("appid", WechatTokenHelper.APP_ID);
         params.put("secret", WechatTokenHelper.APP_SECRET);
         String jstoken = HttpUtils.sendGet(WechatTokenHelper.TOKEN_URL, params);
+        logger.info("获取Basic Token response:{}", jstoken);
         JSONObject jsonObject = new JSONObject(jstoken);
         String access_token = (String) jsonObject.get("access_token");
 //        GlobalConstants.interfaceUrlProperties.put("access_token", access_token);
@@ -45,7 +50,7 @@ public class WechatTask {
      *
      * @throws Exception the exception
      */
-    @Scheduled(fixedRate = ONE_MINUTE)
+    @Scheduled(fixedRate = ONE_HOUR)
     public void run() throws Exception {
         getToken();
     }
