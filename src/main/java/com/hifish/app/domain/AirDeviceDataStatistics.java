@@ -104,4 +104,15 @@ public class AirDeviceDataStatistics {
     public void setPm2_5Min(int pm2_5Min) {
         this.pm2_5Min = pm2_5Min;
     }
+
+    @Override
+    public String toString() {
+        return "AirDeviceDataStatistics{" +
+                "createTime='" + createTime + '\'' +
+                ", deviceId='" + deviceId + '\'' +
+                ", pm2_5Avg=" + pm2_5Avg +
+                ", pm2_5Max=" + pm2_5Max +
+                ", pm2_5Min=" + pm2_5Min +
+                '}';
+    }
 }

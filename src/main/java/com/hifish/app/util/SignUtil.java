@@ -2,25 +2,28 @@ package com.hifish.app.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;  
+import java.util.Arrays;
 
 /**
  * ClassName: SignUtil
- * @Description: 请求校验工具类 
+ *
  * @author dapengniao
+ * @Description: 请求校验工具类
  * @date 2016 年 3 月 4 日 下午 6:25:41
  */
-public class SignUtil {  
+public class SignUtil {
     // 与接口配置信息中的 Token 要一致   
     private static String token = "hifish";
-    /** 
-     * 验证签名 
-     * @param signature 
-     * @param timestamp 
-     * @param nonce 
-     * @return 
-     */  
-    public static boolean checkSignature(String signature, String timestamp, String nonce) {  
+
+    /**
+     * 验证签名
+     *
+     * @param signature the signature
+     * @param timestamp the timestamp
+     * @param nonce     the nonce
+     * @return boolean
+     */
+    public static boolean checkSignature(String signature, String timestamp, String nonce) {
         String[] arr = new String[] { token, timestamp, nonce };  
         // 将 token、timestamp、nonce 三个参数进行字典序排序   
         Arrays.sort(arr);  

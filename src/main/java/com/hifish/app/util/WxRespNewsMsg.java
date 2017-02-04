@@ -12,6 +12,8 @@ import com.hifish.app.domain.wx.resp.WxRespBaseMsg;
 import java.util.List;
 
 /**
+ * The type Wx resp news msg.
+ *
  * @Description: 微信图文消息体
  */
 public class WxRespNewsMsg extends WxRespBaseMsg {
@@ -21,18 +23,38 @@ public class WxRespNewsMsg extends WxRespBaseMsg {
     // 多条图文消息信息，默认第一个 item 为大图
     private List<WxArticle> Articles;
 
+    /**
+     * Gets article count.
+     *
+     * @return the article count
+     */
     public int getArticleCount() {
         return ArticleCount;
     }
 
+    /**
+     * Sets article count.
+     *
+     * @param articleCount the article count
+     */
     public void setArticleCount(int articleCount) {
         ArticleCount = articleCount;
     }
 
+    /**
+     * Gets articles.
+     *
+     * @return the articles
+     */
     public List<WxArticle> getArticles() {
         return Articles;
     }
 
+    /**
+     * Sets articles.
+     *
+     * @param articles the articles
+     */
     public void setArticles(List<WxArticle> articles) {
         Articles = articles;
     }

@@ -41,15 +41,28 @@ import java.util.zip.GZIPInputStream;
 
 
 /**
+ * The type Http reqest util.
+ *
  * @Description: HTTP请求工具类
  */
 public class HttpReqestUtil {
 
+    /**
+     * The constant HTTP_REQUESTMETHOD_GET.
+     */
     public static final String HTTP_REQUESTMETHOD_GET = "GET";
 
+    /**
+     * The constant HTTP_REQUESTMETHOD_POST.
+     */
     public static final String HTTP_REQUESTMETHOD_POST = "POST";
 
     /**
+     * Build url string.
+     *
+     * @param reqUrl the req url
+     * @param params the params
+     * @return the string
      * @Description: 根据参数构建请求URL
      * @return: String
      */
@@ -63,9 +76,14 @@ public class HttpReqestUtil {
     }
 
     /**
-     * @throws URISyntaxException
-     * @throws ClientProtocolException
-     * @throws IOException
+     * Send get string.
+     *
+     * @param reqUrl the req url
+     * @param params the params
+     * @return the string
+     * @throws URISyntaxException      the uri syntax exception
+     * @throws ClientProtocolException the client protocol exception
+     * @throws IOException             the io exception
      * @Description: Get请求共用方法
      * @return: String
      */
@@ -102,7 +120,12 @@ public class HttpReqestUtil {
     }
 
     /**
-     * @throws IOException
+     * Send post by map string.
+     *
+     * @param reqUrl the req url
+     * @param params the params
+     * @return the string
+     * @throws IOException the io exception
      * @Description: Post请求共用方法
      * @return: String
      */
@@ -145,7 +168,12 @@ public class HttpReqestUtil {
     }
 
     /**
-     * @throws IOException
+     * Send post by string string.
+     *
+     * @param requestUrl the request url
+     * @param params     the params
+     * @return the string
+     * @throws IOException the io exception
      * @Description: Post公共请求方法
      * @return: String
      */
@@ -177,10 +205,16 @@ public class HttpReqestUtil {
     }
 
     /**
-     * @throws IOException
-     * @throws NoSuchProviderException
-     * @throws NoSuchAlgorithmException
-     * @throws KeyManagementException
+     * Https request json object.
+     *
+     * @param requestUrl    the request url
+     * @param requestMethod the request method
+     * @param outputStr     the output str
+     * @return the json object
+     * @throws IOException              the io exception
+     * @throws NoSuchAlgorithmException the no such algorithm exception
+     * @throws NoSuchProviderException  the no such provider exception
+     * @throws KeyManagementException   the key management exception
      * @Description: https请求公用方法
      * @return: JSONObject
      */

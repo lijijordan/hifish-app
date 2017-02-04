@@ -49,6 +49,11 @@ public class SwaggerConfig {
                 .build();
     }
 
+    /**
+     * Default auth list.
+     *
+     * @return the list
+     */
     List<SecurityReference> defaultAuth() {
         AuthorizationScope authorizationScope
                 = new AuthorizationScope("global", "accessEverything");
@@ -58,6 +63,11 @@ public class SwaggerConfig {
                 new SecurityReference("mykey", authorizationScopes));
     }
 
+    /**
+     * Security security configuration.
+     *
+     * @return the security configuration
+     */
     @Bean
     SecurityConfiguration security() {
         return new SecurityConfiguration(
@@ -71,6 +81,11 @@ public class SwaggerConfig {
                 "," /*scope separator*/);
     }
 
+    /**
+     * Ui config ui configuration.
+     *
+     * @return the ui configuration
+     */
     @Bean
     UiConfiguration uiConfig() {
         return new UiConfiguration(
@@ -83,6 +98,11 @@ public class SwaggerConfig {
                 true);        // showRequestHeaders    => true | false
     }
 
+    /**
+     * Pet api docket.
+     *
+     * @return the docket
+     */
     @Bean
     public Docket petApi() {
         return new Docket(DocumentationType.SWAGGER_2)

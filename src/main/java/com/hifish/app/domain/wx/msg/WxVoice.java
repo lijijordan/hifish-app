@@ -9,15 +9,27 @@
 package com.hifish.app.domain.wx.msg;
 
 /**
+ * The type Wx voice.
+ *
  * @Description: 微信语音实体
  */
 public class WxVoice {
 	private String MediaId;
 
+	/**
+	 * Gets media id.
+	 *
+	 * @return the media id
+	 */
 	public String getMediaId() {
 		return MediaId;
 	}
 
+	/**
+	 * Sets media id.
+	 *
+	 * @param mediaId the media id
+	 */
 	public void setMediaId(String mediaId) {
 		MediaId = mediaId;
 	}

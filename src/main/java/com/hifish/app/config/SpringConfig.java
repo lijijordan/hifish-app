@@ -38,11 +38,21 @@ public class SpringConfig {
         return executor;
     }
 
+    /**
+     * Log executor executor.
+     *
+     * @return the executor
+     */
     @Bean
     public Executor logExecutor(){
         return initExecutor("log-executor-");
     }
 
+    /**
+     * Message executor executor.
+     *
+     * @return the executor
+     */
     @Bean
     public Executor messageExecutor(){
         return initExecutor("message-executor-");

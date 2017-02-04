@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -26,7 +27,9 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * @Description: 微信事件派发器，根据不同的事件类型进行处理
+ * The type Wx event dispatcher.
+ *
+ * @Description: 微信事件派发器 ，根据不同的事件类型进行处理
  */
 @Component
 public class WxEventDispatcher {
@@ -39,55 +42,40 @@ public class WxEventDispatcher {
     private WxCommUtil wxCommUtil;
 
 
+    /**
+     * Process event string.
+     *
+     * @param map the map
+     * @return the string
+     * @throws URISyntaxException the uri syntax exception
+     * @throws IOException        the io exception
+     */
     public String processEvent(Map<String, String> map)
             throws URISyntaxException, IOException {
 
-        String openid = map.get("FromUserName");
+        String openId = map.get("FromUserName");
         String mpid = map.get("ToUserName");
         String eventType = map.get("Event");
+        String eventKey = map.get("EventKey");
         String resultStr = "";
         switch (eventType) {
             // 关注事件
             case WxMsgType.EVENT_TYPE_SUBSCRIBE: {
                 // 保存关注用户基本信息到数据库
-                UserInfo userInfo = wxCommUtil.getUserInfoForWxClient(openid);
+                UserInfo userInfo = wxCommUtil.getUserInfoForWxClient(openId);
                 userService.addUser(userInfo);
                 resultStr = "关注空气质量,热爱生活!";
                 break;
             }
-
             // 取消关注事件
             case WxMsgType.EVENT_TYPE_UNSUBSCRIBE: {
                 // 删除用户
-                userService.deleteUser(openid);
+                userService.deleteUser(openId);
                 break;
             }
 
             // 扫描二维码推送事件
             case WxMsgType.EVENT_TYPE_SCAN_WAITMSG: {
-
-//                // 提示信息
-//                WxRespTextMsg txtmsg = new WxRespTextMsg();
-//                txtmsg.setToUserName(openid);
-//                txtmsg.setFromUserName(mpid);
-//                txtmsg.setCreateTime(new Date().getTime());
-//                txtmsg.setMsgType(WxMsgType.RESP_MESSAGE_TYPE_TEXT);
-//
-//                // 设置用户与设备关系对象
-//                UserDevInfo userDevInfo = new UserDevInfo();
-//                userDevInfo.setDevSn(map.get("ScanResult"));
-//                userDevInfo.setUserAccount(openid);
-//
-//                // 保存数据库
-//                try {
-//                    webchatEventDispatcher.userDevService.bindUserDev(userDevInfo);
-//                    txtmsg.setContent(MessageUtil.getMessage("message.wx.devuserbind.success"));
-//                } catch (BusinessException e) {
-//                    logger.error("scan error.", e);
-//                    txtmsg.setContent(MessageUtil.getMessage("message.wx.devuserbind.faild"));
-//                }
-//                resultStr = WxMsgUtil.textMessageToXml(txtmsg);
-
                 break;
             }
 
@@ -107,23 +95,18 @@ public class WxEventDispatcher {
             }
             // 扫码设备二维码
             case WxMsgType.EVENT_TYPE_SCAN: {
-//                String sn = map.get("EventKey");
-//                String appid = map.get("FromUserName");
-//                logger.info("sn:{}, appid:{}", sn, appid);
-//                WexinUtils.sendTextMessage("绑定设备成功!", appid);
                 // 提示信息
-                WxRespTextMsg txtmsg = new WxRespTextMsg();
-                txtmsg.setToUserName(openid);
-                txtmsg.setFromUserName(mpid);
-                txtmsg.setCreateTime(new Date().getTime());
-                txtmsg.setMsgType(WxMsgType.RESP_MESSAGE_TYPE_TEXT);
-
-                // 设置用户与设备关系对象
-                UserInfo userDevInfo = new UserInfo();
-                // 保存数据库
-//                userService.bindUserDev(userDevInfo);
-                txtmsg.setContent("绑定成功!");
-                resultStr = WxMsgUtil.textMessageToXml(txtmsg);
+                WxRespTextMsg txtMessage = new WxRespTextMsg();
+                txtMessage.setToUserName(openId);
+                txtMessage.setFromUserName(mpid);
+                txtMessage.setCreateTime(new Date().getTime());
+                txtMessage.setMsgType(WxMsgType.RESP_MESSAGE_TYPE_TEXT);
+                // 用户绑定设备
+                if (!StringUtils.isEmpty(openId) && !StringUtils.isEmpty(eventKey)) {
+                    userService.bindDevice(openId, eventKey);
+                }
+                txtMessage.setContent("绑定成功!");
+                resultStr = WxMsgUtil.textMessageToXml(txtMessage);
             }
             default: {
                 break;

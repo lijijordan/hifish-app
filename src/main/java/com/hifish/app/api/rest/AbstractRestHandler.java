@@ -22,10 +22,22 @@ import javax.servlet.http.HttpServletResponse;
 //@ControllerAdvice?
 public abstract class AbstractRestHandler implements ApplicationEventPublisherAware {
 
+    /**
+     * The Log.
+     */
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
+    /**
+     * The Event publisher.
+     */
     protected ApplicationEventPublisher eventPublisher;
 
+    /**
+     * The constant DEFAULT_PAGE_SIZE.
+     */
     protected static final String  DEFAULT_PAGE_SIZE = "100";
+    /**
+     * The constant DEFAULT_PAGE_NUM.
+     */
     protected static final String DEFAULT_PAGE_NUM = "0";
 
     /**
@@ -37,6 +49,14 @@ public abstract class AbstractRestHandler implements ApplicationEventPublisherAw
      */
     protected static final String RESPONSE_FAILURE = "FAILURE";
 
+    /**
+     * Handle data store exception rest error info.
+     *
+     * @param ex       the ex
+     * @param request  the request
+     * @param response the response
+     * @return the rest error info
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DataFormatException.class)
     public
@@ -47,6 +67,14 @@ public abstract class AbstractRestHandler implements ApplicationEventPublisherAw
         return new RestErrorInfo(ex, "You messed up.");
     }
 
+    /**
+     * Handle resource not found exception rest error info.
+     *
+     * @param ex       the ex
+     * @param request  the request
+     * @param response the response
+     * @return the rest error info
+     */
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ResourceNotFoundException.class)
     public
@@ -62,7 +90,14 @@ public abstract class AbstractRestHandler implements ApplicationEventPublisherAw
         this.eventPublisher = applicationEventPublisher;
     }
 
-    //todo: replace with exception mapping
+    /**
+     * Check resource found t.
+     *
+     * @param <T>      the type parameter
+     * @param resource the resource
+     * @return the t
+     */
+//todo: replace with exception mapping
     public static <T> T checkResourceFound(final T resource) {
         if (resource == null) {
             throw new ResourceNotFoundException("resource not found");

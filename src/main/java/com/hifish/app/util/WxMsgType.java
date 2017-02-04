@@ -9,6 +9,8 @@
 package com.hifish.app.util;
 
 /**
+ * The interface Wx msg type.
+ *
  * @Description: 微信消息体类型
  */
 public interface WxMsgType {

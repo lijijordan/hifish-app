@@ -24,10 +24,20 @@ public class BaseEntity {
     @Column(insertable = false, updatable = true)
     private Boolean isDel;
 
+    /**
+     * Gets del.
+     *
+     * @return the del
+     */
     public Boolean getDel() {
         return isDel;
     }
 
+    /**
+     * Sets del.
+     *
+     * @param del the del
+     */
     public void setDel(Boolean del) {
         isDel = del;
     }

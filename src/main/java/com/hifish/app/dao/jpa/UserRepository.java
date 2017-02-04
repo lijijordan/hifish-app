@@ -9,5 +9,11 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  */
 public interface UserRepository extends PagingAndSortingRepository<UserInfo, Long> {
 
+    /**
+     * Find by open id user info.
+     *
+     * @param openId the open id
+     * @return the user info
+     */
     UserInfo findByOpenId(String openId);
 }

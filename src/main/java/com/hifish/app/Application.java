@@ -1,5 +1,7 @@
 package com.hifish.app;
 
+import com.hifish.app.dao.jpa.AirDeviceRepository;
+import com.hifish.app.domain.AirDeviceDataStatistics;
 import com.hifish.app.mqtt.MQTTConfig;
 import com.hifish.app.mqtt.MQTTService;
 import org.slf4j.Logger;
@@ -15,6 +17,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.util.StringUtils;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /*
@@ -45,6 +49,23 @@ public class Application extends SpringBootServletInitializer {
         //================== MQTT ==================
         initMQTT(env);
         MQTTService.initMQTT(context);
+        //test
+        test(context);
+    }
+
+    /**
+     * Test.
+     *
+     * @param context the context
+     */
+    public static void test(ConfigurableApplicationContext context) {
+        AirDeviceRepository repository = context.getBean(AirDeviceRepository.class);
+        List<AirDeviceDataStatistics> deviceDataStatistics = repository.customCountByDay("A001", new Date(System.currentTimeMillis() - (1000 * 60 * 60 * 24)), new Date());
+        deviceDataStatistics.forEach(airDeviceDataStatistics -> {
+            log.info(airDeviceDataStatistics.toString());
+            log.info(String.valueOf(airDeviceDataStatistics.getPm2_5Avg()));
+        });
+        log.info(deviceDataStatistics.toString());
     }
 
     /**

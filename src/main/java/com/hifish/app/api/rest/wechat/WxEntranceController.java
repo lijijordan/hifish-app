@@ -43,6 +43,8 @@ import java.util.Arrays;
 import java.util.Map;
 
 /**
+ * The type Wx entrance controller.
+ *
  * @Description: 微信服务端入口
  */
 @Api(value = "WxEntrance", description = "WxEntrance Controller")
@@ -77,6 +79,17 @@ public class WxEntranceController {
     private WxEventDispatcher wxEventDispatcher;
 
 
+    /**
+     * Wx server verify.
+     *
+     * @param request   the request
+     * @param response  the response
+     * @param signature the signature
+     * @param timestamp the timestamp
+     * @param nonce     the nonce
+     * @param echostr   the echostr
+     * @throws UnsupportedEncodingException the unsupported encoding exception
+     */
     @ApiOperation(value = "微信服务器验证")
     @SuppressWarnings("deprecation")
     @RequestMapping(value = "getin", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
@@ -110,6 +123,13 @@ public class WxEntranceController {
 
     }
 
+    /**
+     * Wx procedure.
+     *
+     * @param request  the request
+     * @param response the response
+     * @throws UnsupportedEncodingException the unsupported encoding exception
+     */
     @ApiOperation(value = "执行微信公众号事件以及消息处理")
     @RequestMapping(value = "getin", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
     public void wxProcedure(HttpServletRequest request, HttpServletResponse response)
@@ -137,6 +157,15 @@ public class WxEntranceController {
 
     }
 
+    /**
+     * O auth 2.
+     *
+     * @param request  the request
+     * @param response the response
+     * @param code     the code
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     @ApiOperation(value = "正式鉴权，页面鉴权以及获取用户openid,通过openid从数据库获取用户基本及信息")
     @RequestMapping(value = "oauth2.html", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
     public void oAuth2(HttpServletRequest request, HttpServletResponse response,
@@ -175,6 +204,13 @@ public class WxEntranceController {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Test.
+     *
+     * @param request  the request
+     * @param response the response
+     * @throws IOException the io exception
+     */
     @ApiOperation(value = "测试跳转接口")
     @RequestMapping(value = "test", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
     public void test(HttpServletRequest request, HttpServletResponse response)

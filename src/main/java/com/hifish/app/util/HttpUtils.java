@@ -26,20 +26,22 @@ import java.util.zip.GZIPInputStream;
 
 /**
  * ClassName: HttpUtils
- * 
- * @Description: http 请求工具类
+ *
  * @author dapengniao
+ * @Description: http 请求工具类
  * @date 2016 年 3 月 10 日 下午 3:57:14
  */
 @SuppressWarnings("deprecation")
 public class HttpUtils {
 
     /**
+     * Send get string.
+     *
+     * @param reqUrl the req url
+     * @param params the params
+     * @return the string
+     * @throws Exception the exception
      * @Description: http get 请求共用方法
-     * @param @param reqUrl
-     * @param @param params
-     * @param @return
-     * @param @throws Exception
      * @author dapengniao
      * @date 2016 年 3 月 10 日 下午 3:57:39
      */
@@ -70,11 +72,13 @@ public class HttpUtils {
     }
 
     /**
+     * Send post string.
+     *
+     * @param reqUrl the req url
+     * @param params the params
+     * @return the string
+     * @throws Exception the exception
      * @Description: http post 请求共用方法
-     * @param @param reqUrl
-     * @param @param params
-     * @param @return
-     * @param @throws Exception
      * @author dapengniao
      * @date 2016 年 3 月 10 日 下午 3:57:53
      */
@@ -119,12 +123,14 @@ public class HttpUtils {
     }
 
     /**
+     * Send post buffer string.
+     *
+     * @param urls   the urls
+     * @param params the params
+     * @return the string
+     * @throws ClientProtocolException the client protocol exception
+     * @throws IOException             the io exception
      * @Description: http post 请求 json 数据
-     * @param @param urls
-     * @param @param params
-     * @param @return
-     * @param @throws ClientProtocolException
-     * @param @throws IOException
      * @author dapengniao
      * @date 2016 年 3 月 10 日 下午 3:58:15
      */
@@ -145,10 +151,12 @@ public class HttpUtils {
     }
 
     /**
+     * Send xml post string.
+     *
+     * @param urlStr  the url str
+     * @param xmlInfo the xml info
+     * @return the string
      * @Description: http 请求发送 xml 内容
-     * @param @param urlStr
-     * @param @param xmlInfo
-     * @param @return
      * @author dapengniao
      * @date 2016 年 3 月 10 日 下午 3:58:32
      */
@@ -226,11 +234,9 @@ public class HttpUtils {
 
     /**
      * 构建 get 方式的 url
-     * 
-     * @param reqUrl
-     *            基础的 url 地址
-     * @param params
-     *            查询参数
+     *
+     * @param reqUrl 基础的 url 地址
+     * @param params 查询参数
      * @return 构建好的 url
      */
     public static String buildUrl(String reqUrl, Map<String, String> params) {

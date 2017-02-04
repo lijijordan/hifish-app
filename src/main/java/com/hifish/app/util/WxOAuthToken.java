@@ -9,6 +9,8 @@
 package com.hifish.app.util;
 
 /**
+ * The type Wx o auth token.
+ *
  * @Description: 微信网页版认证凭证
  */
 public class WxOAuthToken {
@@ -24,42 +26,92 @@ public class WxOAuthToken {
   // 用户授权作用域
   private String scope;
 
+  /**
+   * Gets access token.
+   *
+   * @return the access token
+   */
   public String getAccessToken() {
     return accessToken;
   }
 
+  /**
+   * Sets access token.
+   *
+   * @param accessToken the access token
+   */
   public void setAccessToken(String accessToken) {
     this.accessToken = accessToken;
   }
 
+  /**
+   * Gets expires in.
+   *
+   * @return the expires in
+   */
   public int getExpiresIn() {
     return expiresIn;
   }
 
+  /**
+   * Sets expires in.
+   *
+   * @param expiresIn the expires in
+   */
   public void setExpiresIn(int expiresIn) {
     this.expiresIn = expiresIn;
   }
 
+  /**
+   * Gets refresh token.
+   *
+   * @return the refresh token
+   */
   public String getRefreshToken() {
     return refreshToken;
   }
 
+  /**
+   * Sets refresh token.
+   *
+   * @param refreshToken the refresh token
+   */
   public void setRefreshToken(String refreshToken) {
     this.refreshToken = refreshToken;
   }
 
+  /**
+   * Gets open id.
+   *
+   * @return the open id
+   */
   public String getOpenId() {
     return openId;
   }
 
+  /**
+   * Sets open id.
+   *
+   * @param openId the open id
+   */
   public void setOpenId(String openId) {
     this.openId = openId;
   }
 
+  /**
+   * Gets scope.
+   *
+   * @return the scope
+   */
   public String getScope() {
     return scope;
   }
 
+  /**
+   * Sets scope.
+   *
+   * @param scope the scope
+   */
   public void setScope(String scope) {
     this.scope = scope;
   }

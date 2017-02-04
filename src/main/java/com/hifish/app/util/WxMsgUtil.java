@@ -30,6 +30,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * The type Wx msg util.
+ *
  * @Description: 微信XML消息体处理工具
  */
 public class WxMsgUtil {
@@ -62,10 +64,14 @@ public class WxMsgUtil {
     });
 
     /**
-     * @throws IOException
-     * @throws DocumentException
-     * @Description: 解析微信发来的请求（XML）,目前解析两层XML
-     * @return: Map<String,String>
+     * Parse xml map.
+     *
+     * @param request the request
+     * @return the map
+     * @throws IOException       the io exception
+     * @throws DocumentException the document exception
+     * @Description: 解析微信发来的请求 （XML）,目前解析两层XML
+     * @return: Map<String String>
      */
     @SuppressWarnings("unchecked")
     public static Map<String, String> parseXml(HttpServletRequest request)
@@ -110,6 +116,10 @@ public class WxMsgUtil {
     }
 
     /**
+     * Text message to xml string.
+     *
+     * @param textMessage the text message
+     * @return the string
      * @Description: 文本消息对象转换成 xml
      * @return: String
      */
@@ -122,8 +132,8 @@ public class WxMsgUtil {
     /**
      * 判断是否是QQ表情
      *
-     * @param content
-     * @return
+     * @param content the content
+     * @return boolean
      */
     public static boolean isQqFace(String content) {
         boolean result = false;
@@ -141,8 +151,8 @@ public class WxMsgUtil {
     /**
      * emoji表情转换(hex -> utf-16)
      *
-     * @param hexEmoji
-     * @return
+     * @param hexEmoji the hex emoji
+     * @return string
      */
     public static String emoji(int hexEmoji) {
         return String.valueOf(Character.toChars(hexEmoji));

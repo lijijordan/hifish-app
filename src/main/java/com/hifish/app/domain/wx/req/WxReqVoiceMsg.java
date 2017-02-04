@@ -9,6 +9,8 @@
 package com.hifish.app.domain.wx.req;
 
 /**
+ * The type Wx req voice msg.
+ *
  * @Description: 微信语音请求消息体
  */
 public class WxReqVoiceMsg extends WxReqBaseMsg {
@@ -18,18 +20,38 @@ public class WxReqVoiceMsg extends WxReqBaseMsg {
 	// 语音格式
 	private String Format;
 
+	/**
+	 * Gets media id.
+	 *
+	 * @return the media id
+	 */
 	public String getMediaId() {
 		return MediaId;
 	}
 
+	/**
+	 * Sets media id.
+	 *
+	 * @param mediaId the media id
+	 */
 	public void setMediaId(String mediaId) {
 		MediaId = mediaId;
 	}
 
+	/**
+	 * Gets format.
+	 *
+	 * @return the format
+	 */
 	public String getFormat() {
 		return Format;
 	}
 
+	/**
+	 * Sets format.
+	 *
+	 * @param format the format
+	 */
 	public void setFormat(String format) {
 		Format = format;
 	}

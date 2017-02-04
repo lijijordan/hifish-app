@@ -4,8 +4,9 @@
 package com.hifish.app.exception;
 
 /**
- * @author yinhong
+ * The type Business exception.
  *
+ * @author yinhong
  */
 public class BusinessException extends Exception {
 
@@ -14,20 +15,44 @@ public class BusinessException extends Exception {
   // 错误代码
   private Integer errorCode;
 
+  /**
+   * Instantiates a new Business exception.
+   *
+   * @param errorCode    the error code
+   * @param errorMessage the error message
+   */
   public BusinessException(Integer errorCode, String errorMessage) {
     super(errorMessage);
     this.errorCode = errorCode;
   }
 
+  /**
+   * Instantiates a new Business exception.
+   *
+   * @param errorCode the error code
+   * @param cause     the cause
+   */
   public BusinessException(Integer errorCode, Throwable cause) {
     this(errorCode, null, cause);
   }
 
+  /**
+   * Instantiates a new Business exception.
+   *
+   * @param errorCode    the error code
+   * @param errorMessage the error message
+   * @param cause        the cause
+   */
   public BusinessException(Integer errorCode, String errorMessage, Throwable cause) {
     super(errorMessage, cause);
     this.errorCode = errorCode;
   }
 
+  /**
+   * Gets error code.
+   *
+   * @return the error code
+   */
   public Integer getErrorCode() {
     return errorCode;
   }

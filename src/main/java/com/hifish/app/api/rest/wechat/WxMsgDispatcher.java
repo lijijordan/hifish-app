@@ -16,13 +16,21 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 /**
- * @Description: 微信消息处理转发器，根据不同类型消息进行不同处理
+ * The type Wx msg dispatcher.
+ *
+ * @Description: 微信消息处理转发器 ，根据不同类型消息进行不同处理
  */
 @Component
 public class WxMsgDispatcher {
 
     private static final Logger logger = LoggerFactory.getLogger(WxMsgDispatcher.class);
 
+    /**
+     * Process message string.
+     *
+     * @param map the map
+     * @return the string
+     */
     public String processMessage(Map<String, String> map) {
 
         String openid = map.get("FromUserName");

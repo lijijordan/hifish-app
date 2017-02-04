@@ -7,7 +7,7 @@ spring.jmx:
 
 spring.datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/hifish_service?autoReconnect=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/hifish_service1?autoReconnect=true&useSSL=false
     username: root
     password: root
 
@@ -77,5 +77,5 @@ mqtt:
   deviceWillTopic: device-will
   qos: 0
   broker: tcp://106.185.35.79:1883
-  userName:  /liji:liji_host
-  password: liji_host
+  userName: root
+  password: fisher

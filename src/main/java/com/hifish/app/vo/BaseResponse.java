@@ -27,9 +27,17 @@ public class BaseResponse {
      */
     private Object data;
 
+    /**
+     * Instantiates a new Base response.
+     */
     public BaseResponse() {
     }
 
+    /**
+     * Instantiates a new Base response.
+     *
+     * @param message the message
+     */
     public BaseResponse(String message) {
         if (message.equals("FAILURE")) {
             this.setCode(0);
@@ -39,6 +47,13 @@ public class BaseResponse {
         this.message = message;
     }
 
+    /**
+     * Instantiates a new Base response.
+     *
+     * @param code    the code
+     * @param message the message
+     * @param details the details
+     */
     public BaseResponse(int code, String message, String details) {
         this.code = code;
         this.message = message;

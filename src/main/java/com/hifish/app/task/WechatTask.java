@@ -28,6 +28,7 @@ public class WechatTask {
     /**
      * Gets token.
      *
+     * @return the token
      * @throws Exception the exception
      */
     public static String getToken() throws Exception {

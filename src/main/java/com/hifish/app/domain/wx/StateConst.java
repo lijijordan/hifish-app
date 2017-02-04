@@ -9,10 +9,17 @@
 package com.hifish.app.domain.wx;
 
 /**
- * 
- * @Description: 实体状态枚举，对应数据库中记录
+ * The interface State const.
+ *
+ * @Description: 实体状态枚举 ，对应数据库中记录
  */
 public interface StateConst {
+  /**
+   * The constant VALID.
+   */
   String VALID = "0";
+  /**
+   * The constant INVALID.
+   */
   String INVALID = "1";
 }

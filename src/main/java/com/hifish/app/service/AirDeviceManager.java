@@ -32,8 +32,9 @@ public class AirDeviceManager {
     /**
      * Query by Day.
      *
-     * @param start the start
-     * @param end   the end
+     * @param start    the start
+     * @param end      the end
+     * @param deviceId the device id
      * @return the list
      */
     public List<AirDeviceDataStatistics> queryByDay(Date start, Date end, String deviceId) {
@@ -44,8 +45,9 @@ public class AirDeviceManager {
     /**
      * Query by hour.
      *
-     * @param start the start
-     * @param end   the end
+     * @param start    the start
+     * @param end      the end
+     * @param deviceId the device id
      * @return the list
      */
     public List<AirDeviceDataStatistics> queryByHour(Date start, Date end, String deviceId) {

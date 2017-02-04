@@ -22,6 +22,12 @@ public class DeviceManagerController extends AbstractRestHandler {
     private final Logger logger = LoggerFactory.getLogger(DeviceManagerController.class);
 
 
+    /**
+     * Register common device base response.
+     *
+     * @param string the string
+     * @return the base response
+     */
     @RequestMapping(value = "/test",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,6 +39,15 @@ public class DeviceManagerController extends AbstractRestHandler {
     }
 
 
+    /**
+     * Do get string.
+     *
+     * @param signature the signature
+     * @param timestamp the timestamp
+     * @param nonce     the nonce
+     * @param echostr   the echostr
+     * @return the string
+     */
     @RequestMapping(value = "/security",
             method = RequestMethod.GET)
     public String doGet(@RequestParam(value = "signature", required = true) String signature,
